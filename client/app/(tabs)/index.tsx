@@ -2,10 +2,10 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { View, Text, ScrollView } from 'react-native'
 import Header from '@/components/Header'
-import { dummyProducts } from '@/assets/assets'
 import { useCart } from '@/context/CartContext'
 import ProductCard from '@/components/ProductCard'
 import SlideShow from '@/components/SlideShow'
+import { MOCK_PRODUCTS } from '@/constants'
 
 export default function Home() {
   const { addToCart } = useCart();
@@ -25,9 +25,9 @@ export default function Home() {
 
           {/* Responsive Flexbox Grid (since native grid support varies) */}
           <View className="flex-row flex-wrap justify-between">
-            {dummyProducts.map((item) => (
-              <View 
-                key={item._id} 
+            {MOCK_PRODUCTS.map((item) => (
+              <View
+                key={item._id}
                 className="w-[48%] sm:w-[32%] lg:w-[23.5%] mb-4"
               >
                 <ProductCard

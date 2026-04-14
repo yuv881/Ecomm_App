@@ -24,7 +24,9 @@ export const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-export const dummyProducts = [
+import { Product } from "../constants/types";
+
+export const dummyProducts: Product[] = [
     {
         ratings: {
             average: 4.7,
@@ -471,23 +473,6 @@ export const dummyProducts = [
         category: "Men",
         stock: 95,
         isFeatured: false,
-        isActive: true,
-        createdAt: "2026-02-08T04:21:50.830Z",
-    },
-    {
-        ratings: {
-            average: 0,
-            count: 0,
-        },
-        _id: "6683db0d7f779795ecfa9907",
-        name: "Men Slim Fit Relaxed Denim Jacket",
-        description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
-        price: 84,
-        images: ["https://raw.githubusercontent.com/avinashdm/gs-images/main/forever/p_img52.png"],
-        sizes: ["S", "M", "L", "XL", "XXL"],
-        category: "Men",
-        stock: 61,
-        isFeatured: true,
         isActive: true,
         createdAt: "2026-02-08T04:21:50.830Z",
     },

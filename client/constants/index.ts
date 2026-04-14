@@ -8,20 +8,27 @@ export const COLORS = {
     error: "#FF4444",
 };
 
+export const PAGES = [
+    { id: 1, name: "Home", icon: "home-outline", route: "/(tabs)" },
+    { id: 2, name: "Shop All", icon: "grid-outline", route: "/screen/Product" },
+    { id: 3, name: "My Account", icon: "person-outline", route: "/screen/Account" },
+    { id: 4, name: "Support", icon: "help-buoy-outline", route: "/screen/Support" },
+];
+
 export const CATEGORIES = [
-    { id: 1, name: "Men", icon: "man-outline" },
-    { id: 2, name: "Women", icon: "woman-outline" },
-    { id: 3, name: "Kids", icon: "happy-outline" },
-    { id: 4, name: "Shoes", icon: "footsteps-outline" },
-    { id: 5, name: "Bag", icon: "briefcase-outline" },
-    { id: 6, name: "Other", icon: "grid-outline" },
+    { id: 1, name: "Men", icon: "man-outline", route: "/screen/Product" },
+    { id: 2, name: "Women", icon: "woman-outline", route: "/screen/Product" },
+    { id: 3, name: "Kids", icon: "happy-outline", route: "/screen/Product" },
+    { id: 4, name: "Shoes", icon: "footsteps-outline", route: "/screen/Product" },
+    { id: 5, name: "Bag", icon: "briefcase-outline", route: "/screen/Product" },
+    { id: 6, name: "Other", icon: "grid-outline", route: "/screen/Product" },
 ];
 
 export const PROFILE_MENU = [
-    { id: 1, title: "My Orders", icon: "receipt-outline", route: "/orders" },
-    { id: 2, title: "Shipping Addresses", icon: "location-outline", route: "/addresses" },
-    { id: 4, title: "My Reviews", icon: "star-outline", route: "/" },
-    { id: 5, title: "Settings", icon: "settings-outline", route: "/" },
+    { id: 1, title: "My Orders", icon: "receipt-outline", route: "/screen/Orders" },
+    { id: 2, title: "Shipping Addresses", icon: "location-outline", route: "/screen/Addresses" },
+    { id: 4, title: "My Reviews", icon: "star-outline", route: "/screen/Reviews" },
+    { id: 5, title: "Settings", icon: "settings-outline", route: "/screen/Settings" },
 ];
 
 export const MOCK_PRODUCTS = [
@@ -64,6 +71,20 @@ export const MOCK_PRODUCTS = [
         stock: 15,
         ratings: { average: 4.8, count: 210 },
         isFeatured: false,
+        isActive: true,
+        createdAt: new Date().toISOString(),
+    },
+    {
+        _id: "4",
+        name: "Classic Leather Jacket",
+        description: "A premium quality leather jacket for a timeless look.",
+        price: 129.99,
+        images: ["https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500"],
+        category: "Men",
+        sizes: ["S", "M", "L", "XL"],
+        stock: 10,
+        ratings: { average: 4.5, count: 120 },
+        isFeatured: true,
         isActive: true,
         createdAt: new Date().toISOString(),
     },

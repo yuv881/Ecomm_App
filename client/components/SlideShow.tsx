@@ -2,13 +2,13 @@ import { View, Image, Text, Dimensions, FlatList, TouchableOpacity, StyleSheet }
 import { BANNERS } from "@/assets/assets";
 import { useState, useRef, useEffect } from "react";
 
-const { width, height } = Dimensions.get("window");
-const BANNER_HEIGHT = height * 0.5;
+const { width } = Dimensions.get("window");
 
 export default function SlideShow() {
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef<FlatList>(null);
 
+    // Auto-scroll logic
     useEffect(() => {
         if (BANNERS.length <= 1) return;
 
@@ -22,18 +22,24 @@ export default function SlideShow() {
                 index: nextIndex,
                 animated: true,
             });
-            setActiveIndex(nextIndex);
         }, 4000);
 
         return () => clearInterval(timer);
     }, [activeIndex]);
 
     const onScroll = (event: any) => {
-        const slideSize = event.nativeEvent.layoutMeasurement.width;
-        const index = event.nativeEvent.contentOffset.x / slideSize;
-        const roundIndex = Math.round(index);
-        setActiveIndex(roundIndex);
+        const scrollOffset = event.nativeEvent.contentOffset.x;
+        const index = Math.round(scrollOffset / width);
+        if (index !== activeIndex) {
+            setActiveIndex(index);
+        }
     };
+
+    const getItemLayout = (_: any, index: number) => ({
+        length: width,
+        offset: width * index,
+        index,
+    });
 
     return (
         <View style={styles.container}>
@@ -44,11 +50,16 @@ export default function SlideShow() {
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                onMomentumScrollEnd={onScroll}
+                onScroll={onScroll}
+                scrollEventThrottle={16}
+                getItemLayout={getItemLayout}
+                snapToAlignment="start"
+                decelerationRate="fast"
+                snapToInterval={width}
                 renderItem={({ item }) => (
                     <View style={styles.slide}>
                         <TouchableOpacity
-                            activeOpacity={0.9}
+                            activeOpacity={1}
                             style={styles.card}
                         >
                             <Image
@@ -56,6 +67,7 @@ export default function SlideShow() {
                                 style={styles.image}
                                 resizeMode="cover"
                             />
+                            <View style={styles.overlay} />
                             <View style={styles.textContainer}>
                                 <Text style={styles.title}>{item.title}</Text>
                                 <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -72,7 +84,10 @@ export default function SlideShow() {
                         key={index}
                         style={[
                             styles.indicator,
-                            { backgroundColor: index === activeIndex ? 'white' : 'rgba(255,255,255,0.4)' }
+                            {
+                                backgroundColor: index === activeIndex ? 'white' : 'rgba(255,255,255,0.4)',
+                                width: index === activeIndex ? 20 : 8
+                            }
                         ]}
                     />
                 ))}
@@ -84,61 +99,59 @@ export default function SlideShow() {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: BANNER_HEIGHT,
-        marginBottom: 20,
-        marginTop: 10,
+        height: 500,
+        marginBottom: 10,
     },
     slide: {
         width: width,
-        height: BANNER_HEIGHT,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 16,
+        height: 500,
     },
     card: {
-        width: width - 32,
+        width: '100%',
         height: '100%',
-        borderRadius: 20,
         overflow: 'hidden',
-        backgroundColor: '#f0f0f0',
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        backgroundColor: '#000',
     },
     image: {
         width: '100%',
         height: '100%',
+        opacity: 0.85,
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.1)',
     },
     textContainer: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 30,
         left: 20,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        padding: 10,
-        borderRadius: 10,
+        right: 20,
     },
     title: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 28,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
     },
     subtitle: {
         color: 'white',
-        fontSize: 14,
+        fontSize: 16,
+        marginTop: 4,
+        opacity: 0.9,
     },
     indicatorContainer: {
         position: 'absolute',
-        bottom: 10,
+        bottom: 15,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 8,
+        alignItems: 'center',
+        gap: 6,
     },
     indicator: {
         height: 8,
-        width: 8,
         borderRadius: 4,
     }
 });

@@ -29,12 +29,14 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
         <Text className="text-base font-bold text-gray-800" numberOfLines={1}>
           {product.name}
         </Text>
-        <Text className="text-sm text-gray-500 mb-1">
-          Size: {size}
-        </Text>
-        <Text className="text-lg font-bold text-primary" style={{ color: COLORS.primary }}>
-          ${product.price.toFixed(2)}
-        </Text>
+        <View className='flex flex-col gap-0.5'>
+          <Text className="text-sm text-gray-500 mb-1">
+            Size: {size}
+          </Text>
+          <Text className="text-lg font-bold text-primary" style={{ color: COLORS.primary }}>
+            Price: ${product.price.toFixed(2)}
+          </Text>
+        </View>
 
         {/* Quantity Controls */}
         <View className="flex-row items-center mt-2">
@@ -44,7 +46,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
           >
             <Ionicons name="remove" size={18} color="black" />
           </TouchableOpacity>
-          
+
           <Text className="mx-4 text-base font-bold">{quantity}</Text>
 
           <TouchableOpacity
