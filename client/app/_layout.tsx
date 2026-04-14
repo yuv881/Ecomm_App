@@ -1,6 +1,11 @@
 import { Stack } from "expo-router";
 import "../global.css";
+import { CartProvider } from "../context/CartContext";
 
 export default function RootLayout() {
-  return <Stack />;
+  return (
+    <CartProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </CartProvider>
+  );
 }
