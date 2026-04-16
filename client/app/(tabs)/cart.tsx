@@ -61,12 +61,12 @@ export default function Cart() {
             </View>
 
             <TouchableOpacity
-              onPress={() => {/* Proceed to checkout logic */ }}
-              className="w-full py-2 rounded-2xl flex-row items-center justify-center"
+              onPress={() => router.push('/screen/Checkout' as any)}
+              className="w-full py-5 rounded-3xl flex-row items-center justify-center shadow-lg active:scale-95 transition-all"
               style={{ backgroundColor: COLORS.primary }}
             >
-              <Text className="text-white font-bold text-lg mr-2">Checkout</Text>
-              <Ionicons name="arrow-forward" size={20} color="white" />
+              <Text className="text-white font-black uppercase tracking-widest mr-2">Proceed to Checkout</Text>
+              <Ionicons name="arrow-forward" size={18} color="white" />
             </TouchableOpacity>
           </View>
         </>

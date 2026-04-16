@@ -64,14 +64,14 @@ export default function Header({
         {/* Right section: Search and Cart */}
         <View style={styles.rightSection}>
           {showSearch && (
-            <TouchableOpacity style={styles.iconBtn}>
-              <Ionicons name="search-outline" size={24} color={COLORS.primary} />
+            <TouchableOpacity style={styles.iconBtn} onPress={() => router.push('/screen/Search' as any)}>
+              <Ionicons name="search-outline" size={28} color={COLORS.primary} />
             </TouchableOpacity>
           )}
           {showCart && (
             <TouchableOpacity onPress={() => setIsCartOpen(true)} style={styles.iconBtn}>
               <View>
-                <Ionicons name="cart-outline" size={24} color={COLORS.primary} />
+                <Ionicons name="cart-outline" size={28} color={COLORS.primary} />
                 {itemCount > 0 && (
                   <View style={styles.badge}>
                     <Text style={styles.badgeText}>{itemCount}</Text>
@@ -256,13 +256,10 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   centerSection: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 0,
   },
   rightSection: {
     flexDirection: 'row',

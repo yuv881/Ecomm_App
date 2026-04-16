@@ -1,12 +1,12 @@
 import { View, Text, FlatList, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
+import { COLORS, CATEGORIES } from '@/constants';
 import { dummyProducts } from '@/assets/assets';
 import ProductCard from '@/components/ProductCard';
 import Header from '@/components/Header';
 import { useCart } from '@/context/CartContext';
 import { Ionicons } from '@expo/vector-icons';
-import { CATEGORIES } from '@/constants';
 
 export default function Product() {
     const { addToCart } = useCart();
@@ -42,12 +42,12 @@ export default function Product() {
                             <TouchableOpacity
                                 key={cat.id}
                                 onPress={() => setSelectedCategory(cat.name)}
-                                className={`px-4 py-2 rounded-full border shadow-sm ${selectedCategory === cat.name
+                                className={`px-6 py-3.5 rounded-2xl border shadow-sm ${selectedCategory === cat.name
                                     ? "bg-black border-black"
                                     : "bg-white border-gray-100"
                                     }`}
                             >
-                                <Text className={`font-bold text-[11px] uppercase tracking-wider ${selectedCategory === cat.name ? "text-white" : "text-gray-400"
+                                <Text className={`font-black text-[10px] uppercase tracking-[2px] ${selectedCategory === cat.name ? "text-white" : "text-gray-400"
                                     }`}>
                                     {cat.name}
                                 </Text>
@@ -57,21 +57,23 @@ export default function Product() {
                 </View>
 
                 {/* Product Stats & Header */}
-                <View className="px-5 py-4 flex-row justify-between items-end">
-                    <View>
-                        <Text className="text-2xl font-black text-gray-900 leading-tight">
+                <View className="px-5 py-6 flex-row justify-between items-center">
+                    <View className="flex-1">
+                        <Text className="text-3xl font-black text-gray-900 leading-none">
                             {selectedCategory}
                         </Text>
-                        <Text className="text-gray-400 font-bold text-[11px] uppercase tracking-widest mt-0.5">
-                            {filteredProducts.length} Products Available
-                        </Text>
+                        <View className="flex-row items-center mt-2">
+                            <View className="h-[3px] w-8 bg-black mr-3" />
+                            <Text className="text-gray-400 font-extrabold text-[10px] uppercase tracking-[3px]">
+                                {filteredProducts.length} Products
+                            </Text>
+                        </View>
                     </View>
-                    <View className="flex-row gap-2">
-                        <TouchableOpacity className="flex-row items-center bg-gray-900 px-4 py-2.5 rounded-xl shadow-sm">
-                            <Ionicons name="filter" size={16} color="white" />
-                            <Text className="ml-2 text-white font-extrabold text-xs">Filter</Text>
-                        </TouchableOpacity>
-                    </View>
+
+                    <TouchableOpacity className="flex-row items-center bg-gray-50 border border-gray-100 px-5 py-3 rounded-2xl shadow-sm active:bg-gray-100">
+                        <Ionicons name="options-outline" size={18} color={COLORS.primary} />
+                        <Text className="ml-2 text-black font-black text-[11px] uppercase tracking-widest">Filter</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Product Grid */}
