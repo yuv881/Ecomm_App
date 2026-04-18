@@ -12,7 +12,6 @@ export const PAGES = [
     { id: 1, name: "Home", icon: "home-outline", route: "/(tabs)" },
     { id: 2, name: "Shop All", icon: "grid-outline", route: "/screen/Product" },
     { id: 3, name: "My Account", icon: "person-outline", route: "/screen/Account" },
-    { id: 4, name: "Support", icon: "help-buoy-outline", route: "/screen/Support" },
 ];
 
 export const CATEGORIES = [
@@ -27,8 +26,8 @@ export const CATEGORIES = [
 export const PROFILE_MENU = [
     { id: 1, title: "My Orders", icon: "receipt-outline", route: "/screen/My_Orders" },
     { id: 2, title: "Shipping Addresses", icon: "location-outline", route: "/screen/Addresses" },
-    { id: 4, title: "My Reviews", icon: "star-outline", route: "/screen/Reviews" },
-    { id: 5, title: "Settings", icon: "settings-outline", route: "/screen/Settings" },
+    { id: 3, title: "My Reviews", icon: "star-outline", route: "/screen/Reviews" },
+    { id: 4, title: "Settings", icon: "settings-outline", route: "/screen/Settings" },
 ];
 
 export const MOCK_PRODUCTS = [

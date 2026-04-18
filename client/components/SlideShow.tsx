@@ -1,4 +1,4 @@
-import { View, Image, Text, Dimensions, FlatList, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Image, Text, Dimensions, FlatList, TouchableOpacity } from "react-native";
 import { BANNERS } from "@/assets/assets";
 import { useState, useRef, useEffect } from "react";
 
@@ -42,7 +42,7 @@ export default function SlideShow() {
     });
 
     return (
-        <View style={styles.container}>
+        <View className="w-full h-[500px] mb-2.5">
             <FlatList
                 ref={flatListRef}
                 data={BANNERS}
@@ -57,20 +57,24 @@ export default function SlideShow() {
                 decelerationRate="fast"
                 snapToInterval={width}
                 renderItem={({ item }) => (
-                    <View style={styles.slide}>
+                    <View className="h-[500px]" style={{ width }}>
                         <TouchableOpacity
                             activeOpacity={1}
-                            style={styles.card}
+                            className="w-full h-full overflow-hidden bg-black"
                         >
                             <Image
                                 source={{ uri: item.image }}
-                                style={styles.image}
+                                className="w-full h-full opacity-80"
                                 resizeMode="cover"
                             />
-                            <View style={styles.overlay} />
-                            <View style={styles.textContainer}>
-                                <Text style={styles.title}>{item.title}</Text>
-                                <Text style={styles.subtitle}>{item.subtitle}</Text>
+                            <View className="absolute inset-0 bg-black/10" />
+                            <View className="absolute bottom-10 left-5 right-5">
+                                <Text className="text-white font-black text-3xl shadow-lg">
+                                    {item.title}
+                                </Text>
+                                <Text className="text-white text-base mt-1 opacity-90 font-bold">
+                                    {item.subtitle}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -78,80 +82,16 @@ export default function SlideShow() {
             />
 
             {/* Indicators */}
-            <View style={styles.indicatorContainer}>
+            <View className="absolute bottom-4 w-full flex-row justify-center items-center gap-1.5">
                 {BANNERS.map((_, index) => (
                     <View
                         key={index}
-                        style={[
-                            styles.indicator,
-                            {
-                                backgroundColor: index === activeIndex ? 'white' : 'rgba(255,255,255,0.4)',
-                                width: index === activeIndex ? 20 : 8
-                            }
-                        ]}
+                        className={`h-2 rounded-full ${
+                            index === activeIndex ? 'w-5 bg-white' : 'w-2 bg-white/40'
+                        }`}
                     />
                 ))}
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: 500,
-        marginBottom: 10,
-    },
-    slide: {
-        width: width,
-        height: 500,
-    },
-    card: {
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        backgroundColor: '#000',
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        opacity: 0.85,
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.1)',
-    },
-    textContainer: {
-        position: 'absolute',
-        bottom: 30,
-        left: 20,
-        right: 20,
-    },
-    title: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 28,
-        textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        textShadowOffset: { width: -1, height: 1 },
-        textShadowRadius: 10,
-    },
-    subtitle: {
-        color: 'white',
-        fontSize: 16,
-        marginTop: 4,
-        opacity: 0.9,
-    },
-    indicatorContainer: {
-        position: 'absolute',
-        bottom: 15,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 6,
-    },
-    indicator: {
-        height: 8,
-        borderRadius: 4,
-    }
-});
